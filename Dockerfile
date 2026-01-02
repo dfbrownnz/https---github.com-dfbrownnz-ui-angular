@@ -1,5 +1,5 @@
 # STAGE 1: Build the Angular application
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
