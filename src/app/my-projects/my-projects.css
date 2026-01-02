@@ -1,0 +1,26 @@
+/* in my-projects.component.css */
+.header-row {
+  background-color: #f8f9fa; /* A very light grey often used in Material design */
+}
+
+/* Optional: Add a bottom border to make it pop against the white rows */
+.header-row th {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Use a slightly stronger selector to ensure it overrides Material defaults */
+.mat-mdc-row:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important; /* Subtle grey hover */
+  cursor: pointer;
+}
+
+/* If you want a more noticeable color like the light blue we discussed */
+.mat-mdc-row:hover {
+  background-color: #f1f5f9 !important; 
+}
+
+/* Styling for the record count footer */
+.mat-mdc-footer-cell {
+  color: #475569; /* slate-600 */
+  border-top: 2px solid #e2e8f0;
+}
