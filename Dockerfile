@@ -17,8 +17,10 @@ COPY --from=build /usr/src/app/dist/my-app/browser /usr/share/nginx/html
 
 # Optional: Copy a custom nginx.conf if you use Angular Routing
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Add this line to change the default port from 80 to 8080
+RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
 
 # Build the image: 
