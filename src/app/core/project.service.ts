@@ -12,8 +12,9 @@ interface ProjectData {
 export class ProjectService {
     private http = inject(HttpClient);
     // http://localhost:5173/swagger/index.html#/default/GetProjectlist
-    // private apiUrlBase = 'https://todoapi-947367955954.europe-west1.run.app';
-    private apiUrlBase = 'http://localhost:5173';
+    private apiUrlBase = 'https://todoapi-947367955954.europe-west1.run.app';
+    // https://todoapi-947367955954.europe-west1.run.app/gcs?bucketName=cary-tasks&ProjectId=todos.2.json
+    //private apiUrlBase = 'http://localhost:5173';
     private apiUrl = this.apiUrlBase + '/gcs/file-contents';
     // private apiUrl = https://todoapi-947367955954.europe-west1.run.app/gcs/file-contents';
     // https://todoapi-947367955954.europe-west1.run.app/gcs/file-contents?bucketName=cary-tasks&ProjectId=todos.2.json
