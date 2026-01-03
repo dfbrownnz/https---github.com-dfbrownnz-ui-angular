@@ -140,14 +140,25 @@
   font-weight: 500;
 }
 
+.left-menu.collapsed {
+  width: 100px; /* Collapsed width */
+  padding: 0;
+}
+
+.main-content {
+  flex-grow: 1; /* Main content takes up remaining space */
+  padding: 20px;
+    overflow-y: auto;
+}
+
 .material-icons {
   margin-right: 18px;
   font-size: 20px;
   color: inherit;
 }
 
-.main-content {
+/* .main-content {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
-}
+} */

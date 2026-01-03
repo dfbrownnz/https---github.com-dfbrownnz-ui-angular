@@ -12,10 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
 
+
 import {
   createAngularTable,
   FlexRenderDirective,
-getCoreRowModel, 
+  getCoreRowModel,
   getFilteredRowModel
 } from '@tanstack/angular-table';
 import { lastValueFrom } from 'rxjs';
@@ -37,7 +38,8 @@ interface ProjectData {
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    
+
+
   ],
   standalone: true,
   templateUrl: './project-list.html',
@@ -58,6 +60,7 @@ export class ProjectList {
     Values: ['', Validators.required]
   });
   private queryClient = inject(QueryClient);
+  constructor(private router: Router) { }
 
   onSubmit() {
     if (this.projectForm.valid) {
@@ -130,17 +133,25 @@ export class ProjectList {
   }));
 
   onRowClick(rowData: any) {
-    // console.log('Row clicked:', rowData);
+    console.log('Row clicked: assign these to the url params', rowData);
 
     this.projectForm.patchValue({
       Owner: rowData.Owner,
       Name: rowData.Name,
       Values: rowData.Values
     });
-   
+
+    this.router.navigate([], {
+      queryParams: {
+        'projectOwner': rowData.Owner,
+        'projectList': rowData.Name
+      },
+      queryParamsHandling: 'merge' // Keeps existing parameters like projectId
+    });
+
   }
-  clearFilter() {
-  this.globalFilter.set('');
-}
+
+
+  clearFilter() { this.globalFilter.set(''); }
 
 }

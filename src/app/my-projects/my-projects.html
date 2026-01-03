@@ -4,10 +4,8 @@
     @if (todoData.error()) { <span>Error: {{ todoData.error()?.message }}</span> }
 
     @if (todoData.data()) {
-
-    <h2>Should be project-owner and list-name from url  </h2>
-    <h2> Project list is where you choose project-owner and list-name to url </h2>
-    <h2>Project {{ currentProjectId || 'All' }}</h2>
+    <h2>Projects for {{ projectOwner || 'All' }} in {{ projectList || 'All' }} </h2>
+    <h2> back end gets all project id for this owner and list </h2>
 
     <div class="mat-elevation-z8 mt-4">
       <table mat-table [dataSource]="todoData.data() ?? []" matSort class="w-full">

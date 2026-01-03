@@ -1,0 +1,22 @@
+steps:
+# 1. Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/dev-task-controller/github.com/dfbrownnz/https---github.com-dfbrownnz-ui-angular:latest', '.']
+
+# 2. Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/dev-task-controller/github.com/dfbrownnz/https---github.com-dfbrownnz-ui-angular:latest']
+
+# 3. Deploy the image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'todoui1'
+  - '--image'
+  - 'gcr.io/dev-task-controller/github.com/dfbrownnz/https---github.com-dfbrownnz-ui-angular:latest'
+  - '--region'
+  - 'europe-west1'
+images:
+- 'gcr.io/dev-task-controller/github.com/dfbrownnz/https---github.com-dfbrownnz-ui-angular:latest'

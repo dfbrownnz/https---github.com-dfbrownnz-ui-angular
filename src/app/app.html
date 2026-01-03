@@ -4,6 +4,8 @@
     <div class="nav-left">
 
       <span class="app-title">Todos</span>
+       <button mat-button type="button" (click)="toggleSidebar()">Toggle Menu</button>  
+
     </div>
 
     <div class="nav-center">
@@ -18,26 +20,42 @@
         <p [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
             <span >Projects</span>  </p>
     </div>
+
+   
   </header>
 
 
   <div class="app-container">
-    <aside class="left-menu">
+    <aside class="left-menu" [ngClass]="{ 'collapsed': isSidebarCollapsed }">
     
       <nav>
         <ul>
-          <li routerLink="/settings" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active"> <span
-              class="material-icons"> Settings</span> </li>
-          <li routerLink="/users" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span class="material-icons">Users</span>
+            <li [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId, projectOwner: projectOwner , projectList: projectList }"  routerLinkActive="active">
+            <span class="material-icons">list</span>
+            <span>Project List</span>
           </li>
-          <li [routerLink]="['/projects']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span class="material-icons"></span> Tasks MyProjects  </li>
+
+          <!-- <li routerLink="/users" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span class="material-icons">group</span>
+            <span>Users</span>
+          </li> -->
+          <li [routerLink]="['/projects']" [queryParams]="{ projectId: currentProjectId, projectOwner: projectOwner , projectList: projectList }" routerLinkActive="active">
+            <span class="material-icons">list_alt</span>
+            <span>Tasks MyProjects</span>
+          </li>
+                  <!-- 'project-owner': rowData.Owner,
+        'project-list': rowData.Name -->
+
+          <!-- projectOwner : string | null = null;
+  projectList : string | null = null; -->
           
           <!-- <li [routerLink]="['/sqlparser']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
             <span class="material-icons"></span> sqlparser </li> -->
-          <li [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span class="material-icons"></span> Project List </li>
+        <!-- <li routerLink="/settings" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span class="material-icons">settings</span>
+            <span>Settings</span>
+          </li> -->
+          
 
         </ul>
       </nav>
