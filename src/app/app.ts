@@ -9,10 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet , RouterLink, RouterLinkActive , CommonModule , 
-    
-        MatButtonModule,
-    
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule,
+
+    MatButtonModule,
+
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -22,13 +22,15 @@ export class App {
   protected readonly title = signal('tods');
 
   currentProjectId: string | null = null;
-  projectOwner : string | null = null;
-  projectList : string | null = null;
+  projectOwner: string | null = null;
+  projectList: string | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
 
-  isSidebarCollapsed = false; // Initial state: expanded
+  //isSidebarCollapsed = false; // Initial state: expanded
+  isSidebarCollapsed: boolean = true; // Initial state: collapsed
+
 
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;

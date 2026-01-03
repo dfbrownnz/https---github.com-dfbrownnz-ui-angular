@@ -133,16 +133,30 @@
   background-color: #f1f3f4;
 }
 
-/* Active/Selected State */
-.left-menu li.active {
+ 
+/* .left-menu li.active {
   background-color: #e8f0fe;
   color: #1967d2;
   font-weight: 500;
 }
 
 .left-menu.collapsed {
-  width: 100px; /* Collapsed width */
+  width: 120px; 
   padding: 0;
+} */
+
+.left-menu {
+  width: 50px; /* Collapsed width */
+  
+  padding: 10px;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.left-menu:not(.collapsed) {
+  width: 150px; /* Expanded width */
+  padding: 10px;
 }
 
 .main-content {

@@ -4,21 +4,24 @@
     <div class="nav-left">
 
       <span class="app-title">Todos</span>
-       <button mat-button type="button" (click)="toggleSidebar()">Toggle Menu</button>  
+       
 
     </div>
 
     <div class="nav-center">
       <div *ngIf="currentProjectId" class="active-project-tag">
-        Project: {{ currentProjectId }}
+        Owner {{ projectOwner }}
+        List {{ projectList }}
+        Project {{ currentProjectId }}
       </div>
     </div>
 
     <div class="nav-right">
 
       
-        <p [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span >Projects</span>  </p>
+        <p [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId, projectOwner: projectOwner , projectList: projectList }" routerLinkActive="active">
+                   <span class="material-icons">list</span>
+            <span  >Projects</span> </p>
     </div>
 
    
@@ -26,13 +29,17 @@
 
 
   <div class="app-container">
-    <aside class="left-menu" [ngClass]="{ 'collapsed': isSidebarCollapsed }">
+    <!-- <aside class="left-menu" [ngClass]="{ 'collapsed': isSidebarCollapsed }"> -->
+<aside class="left-menu" 
+       [class.collapsed]="isSidebarCollapsed"
+       (mouseenter)="isSidebarCollapsed = false" 
+       (mouseleave)="isSidebarCollapsed = true">
     
       <nav>
         <ul>
             <li [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId, projectOwner: projectOwner , projectList: projectList }"  routerLinkActive="active">
             <span class="material-icons">list</span>
-            <span>Project List</span>
+            <span *ngIf="!isSidebarCollapsed">Projects</span>
           </li>
 
           <!-- <li routerLink="/users" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
@@ -41,8 +48,9 @@
           </li> -->
           <li [routerLink]="['/projects']" [queryParams]="{ projectId: currentProjectId, projectOwner: projectOwner , projectList: projectList }" routerLinkActive="active">
             <span class="material-icons">list_alt</span>
-            <span>Tasks MyProjects</span>
+            <span *ngIf="!isSidebarCollapsed">Tasks </span>
           </li>
+          <!-- MyProjects -->
                   <!-- 'project-owner': rowData.Owner,
         'project-list': rowData.Name -->
 
