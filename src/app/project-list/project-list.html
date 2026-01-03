@@ -3,6 +3,13 @@ Total Records: {{ projectList.data()?.length ?? 0 }} -->
 
 <div class="m-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
   <h2 class="mb-4 text-lg font-medium text-gray-700">Asign Projects to a Project Manager</h2>
+  <ul class="flex flex-col gap-2">
+    <h2> Project list is where you choose project-owner and list-name to url </h2>
+    <li class="flex items-center gap-2">project-owner-list people in Pm - Owner. Not Task Owner </li>
+    <li class="flex items-center gap-2">project-active-list projects in scope - Value. Copy template to new.</li>
+    <li class="flex items-center gap-2">project-active-list (Value) is assigned project-owner-list (Owner) for a list name </li>
+    <li class="flex items-center gap-2"> This is expected delivery date  </li>
+  </ul>
   
   <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <mat-form-field appearance="outline" class="w-full">

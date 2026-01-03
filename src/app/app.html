@@ -14,7 +14,9 @@
 
     <div class="nav-right">
 
-      <span class="material-icons">User </span>
+      
+        <p [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span >Projects</span>  </p>
     </div>
   </header>
 
@@ -30,11 +32,10 @@
             <span class="material-icons">Users</span>
           </li>
           <li [routerLink]="['/projects']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span class="material-icons"></span> Tasks  </li>
-          <li [routerLink]="['/projectsToPm']" [queryParams]="{ projectId: currentProjectId }"
-            routerLinkActive="active"> <span class="material-icons"></span> Projects To PM </li>
-          <li [routerLink]="['/sqlparser']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span class="material-icons"></span> sqlparser </li>
+            <span class="material-icons"></span> Tasks MyProjects  </li>
+          
+          <!-- <li [routerLink]="['/sqlparser']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span class="material-icons"></span> sqlparser </li> -->
           <li [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
             <span class="material-icons"></span> Project List </li>
 

@@ -2,19 +2,20 @@ import { Component, inject, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
-import { MatFormFieldModule  } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../core/project.service'
 import { QueryClient } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-project-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatInputModule,MatButtonModule, MatFormFieldModule, CommonModule , MatCardModule  ],
+  imports: [ReactiveFormsModule, MatInputModule, MatButtonModule, MatFormFieldModule, CommonModule, MatCardModule],
   templateUrl: './my-projects.component.html',
 
 })
@@ -31,6 +32,7 @@ export class MyProjectsFormComponent {
     Description: [''],
     Name: [''],
     Group: [''],
+    Owner: [''],
     StatusFlag: [''],
     StatusDate: ['']
   });
@@ -47,15 +49,7 @@ export class MyProjectsFormComponent {
     if (data) {
       console.log('Form receiving data:', data);
       this.projectForm.patchValue(data); // Auto-fills the form
-      //   this.fb.group({
-      //         Id: data.Id ,
-      //     Name: data.Name,
-      //     Group: data.Group,
-      //     StatusFlag: data.StatusFlag,
-      //     StatusDate: data.StatusDate
-
-      //   })
-    }
+         }
   }
 
 
@@ -69,53 +63,47 @@ export class MyProjectsFormComponent {
     // You can also access specific fields shown on your screen
     console.log('Editing Task:', formData.Name);
   }
-private queryClient = inject(QueryClient);
+  private queryClient = inject(QueryClient);
+  private snackBar = inject(MatSnackBar);
 
   async onSave() {
+
+    const ex = { ...this.projectForm.getRawValue(), ProjectId: this.selectedRowData.ProjectId };
     
-//    const ex = { ...this.projectForm.getRawValue(), ProjectId: this.selectedRow.ProjectId };
-    const ex = { ...this.projectForm.getRawValue(), ProjectId:  this.selectedRowData.ProjectId };
-    //const ex = this.projectForm.getRawValue()  ;
-    // console.log('|onSave| this.selectedRowData|' ,  this.selectedRowData )
-
-    // try {
-    //   await lastValueFrom(await this.projectService.saveTodos(ex));
-      
-    //   // 2. This tells Angular to refetch any data using the 'projects' key
-    //   this.queryClient.invalidateQueries({ queryKey: ['projects'] });
-      
-    //   console.log('Table refreshed!');
-    // } catch (err) {
-    //   console.error('Save failed', err);
-    // }
-          //const ex = this.projectForm.getRawValue()  ;
-      // console.log('|onSave| this.selectedRowData|' ,  this.selectedRowData )
-      // try {
-      //   await lastValueFrom(await this.projectService.saveTodos(ex));
-      //   // 2. This tells Angular to refetch any data using the 'projects' key
-      //   this.queryClient.invalidateQueries({ queryKey: ['projects'] });
-      //   console.log('Table refreshed!');
-      // } catch (err) {
-      //   console.error('Save failed', err);
-      // }
-
     (await
 
       this.projectService.saveTodos(ex)).subscribe({
-    next: () => {
-      console.log('Save successful');
-      
-      // 1. Clear the form values
-      this.projectForm.reset(); 
-      
-      // 2. Refresh the table data
-      this.queryClient.invalidateQueries({ queryKey: ['projects'] });
-      
-      // 3. Optional: Clear the selection state in the parent
-      this.selectedRowData = null; 
-    },
-    error: (err) => console.error('Save failed', err)
-  });
-    
+        next: () => {
+          console.log('Save successful');
+
+          // 1. Clear the form values
+          this.projectForm.reset();
+
+          // 2. Refresh the table data
+          this.queryClient.invalidateQueries({ queryKey: ['projects'] });
+
+          // 3. Optional: Clear the selection state in the parent
+          this.selectedRowData = null;
+
+          // Trigger Success Toast
+          this.snackBar.open('Saved successfully!', 'OK', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+          });
+
+        },
+        // error: (err) => console.error('Save failed', err)
+        error: (err: any) => {
+
+          // Trigger Error Toast
+          this.snackBar.open('Save failed!', 'OK', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+          });
+        }
+      });
+
   }
 }

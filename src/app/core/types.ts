@@ -4,6 +4,7 @@ export interface Todo {
   Description: string;
   Name: string;
   Group: string;
+  Owner : string;
   StatusFlag: string;
   StatusDate: string;
 }
