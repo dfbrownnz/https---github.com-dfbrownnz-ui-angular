@@ -13,7 +13,7 @@ export class ProjectService {
     private http = inject(HttpClient);
     // http://localhost:5173/swagger/index.html#/default/GetProjectlist
     // https://todoapi-947367955954.europe-west1.run.app/gcs?bucketName=cary-tasks&ProjectId=todos.2.json
-    private apiUrlBase = 'https://todoapi-947367955954.europe-west1.run.app';
+    private apiUrlBase = '/api';
     // private apiUrlBase = 'http://localhost:5173';
     private apiUrl = this.apiUrlBase + '/gcs/file-contents';
     // private apiUrl = https://todoapi-947367955954.europe-west1.run.app/gcs/file-contents';

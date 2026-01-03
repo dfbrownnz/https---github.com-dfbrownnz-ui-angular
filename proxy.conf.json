@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://todoapi-947367955954.europe-west1.run.app",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
