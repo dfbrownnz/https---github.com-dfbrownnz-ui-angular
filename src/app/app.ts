@@ -12,9 +12,11 @@ import { CommonModule } from '@angular/common'; // 1. Import CommonModule
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('my-app');
+  // protected readonly title = signal('my-app');
+  protected readonly title = signal('tods');
 
   currentProjectId: string | null = null;
+  owner : string | null = null;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -22,6 +24,7 @@ export class App {
     // This listens to any changes in the URL query parameters globally
     this.route.queryParams.subscribe(params => {
       this.currentProjectId = params['projectId'];
+      this.owner = params['owner'];
     });
   }
 }

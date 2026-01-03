@@ -42,7 +42,7 @@ export class MyProjects  {
 // Use a signal for the projectId (e.g., from an input or route)
 projectId = input.required<string>();
   private projectService = inject(ProjectService);
-  private todoData1 = []
+  
 
 ngOnInit(): void {
   // Watch for changes in the URL (e.g., ?projectId=a)

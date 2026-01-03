@@ -8,10 +8,7 @@ import { FormsModule } from '@angular/forms'; // Required for ngModel
 import { injectMutation, injectQuery, QueryClient } from '@tanstack/angular-query-experimental'; // mutate state 
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
 
 @Component({
   selector: 'app-my-project-to-pm',

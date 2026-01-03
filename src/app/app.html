@@ -2,40 +2,42 @@
 
   <header class="top-nav">
     <div class="nav-left">
-      
-           <span class="app-title">MyApp</span>
+
+      <span class="app-title">Todos</span>
     </div>
 
     <div class="nav-center">
-         <div *ngIf="currentProjectId" class="active-project-tag">
+      <div *ngIf="currentProjectId" class="active-project-tag">
         Project: {{ currentProjectId }}
       </div>
     </div>
 
     <div class="nav-right">
 
-     <span class="material-icons">User </span>
+      <span class="material-icons">User </span>
     </div>
   </header>
 
 
   <div class="app-container">
     <aside class="left-menu">
-      <div *ngIf="currentProjectId" class="project-badge">
-        Active Project: {{ currentProjectId }}
-      </div>
+    
       <nav>
         <ul>
-          <li routerLink="/settings" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
-            <span class="material-icons">Settings</span>
-          </li>
+          <li routerLink="/settings" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active"> <span
+              class="material-icons"> Settings</span> </li>
           <li routerLink="/users" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
             <span class="material-icons">Users</span>
           </li>
-          <li [routerLink]="['/projects']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">            Projects          </li>
-          <li [routerLink]="['/projectsToPm']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">            Projects To PM         </li>
-          <li [routerLink]="['/sqlparser']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">            sqlparser         </li>
-          
+          <li [routerLink]="['/projects']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span class="material-icons"></span> Tasks  </li>
+          <li [routerLink]="['/projectsToPm']" [queryParams]="{ projectId: currentProjectId }"
+            routerLinkActive="active"> <span class="material-icons"></span> Projects To PM </li>
+          <li [routerLink]="['/sqlparser']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span class="material-icons"></span> sqlparser </li>
+          <li [routerLink]="['/ProjectList']" [queryParams]="{ projectId: currentProjectId }" routerLinkActive="active">
+            <span class="material-icons"></span> Project List </li>
+
         </ul>
       </nav>
     </aside>
