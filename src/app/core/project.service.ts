@@ -34,7 +34,8 @@ export class ProjectService {
         const apiUrlComplete = `${apiUrl}?bucketName=${this.bucketName}&ProjectId=todos.${todoRecord.ProjectId}.json`
          console.log('|project.service.ts|apiUrlComplete|', apiUrlComplete , todoRecord)
 
-        return this.http.put(apiUrlComplete, todoRecord);
+        // return this.http.put(apiUrlComplete, todoRecord);
+        return this.http.post(apiUrlComplete, todoRecord);
     }
 
 
@@ -55,6 +56,7 @@ export class ProjectService {
         const apiUrlComplete = `${this.apiUrlBase}/projectlist?projectlistName=${projectListObject.Owner}`
         console.log('|project.servic.ts|saveProjectList|', apiUrlComplete , projectListObject )
 
-        return lastValueFrom(this.http.put<ProjectData>(  apiUrlComplete , projectListObject ));
+        // return lastValueFrom(this.http.put<ProjectData>(  apiUrlComplete , projectListObject ));
+        return lastValueFrom(this.http.post<ProjectData>(  apiUrlComplete , projectListObject ));
     }
 }
