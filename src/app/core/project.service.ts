@@ -12,9 +12,9 @@ interface ProjectData {
 export class ProjectService {
     private http = inject(HttpClient);
     // http://localhost:5173/swagger/index.html#/default/GetProjectlist
-    private apiUrlBase = 'https://todoapi-947367955954.europe-west1.run.app';
     // https://todoapi-947367955954.europe-west1.run.app/gcs?bucketName=cary-tasks&ProjectId=todos.2.json
-    //private apiUrlBase = 'http://localhost:5173';
+    private apiUrlBase = 'https://todoapi-947367955954.europe-west1.run.app';
+    // private apiUrlBase = 'http://localhost:5173';
     private apiUrl = this.apiUrlBase + '/gcs/file-contents';
     // private apiUrl = https://todoapi-947367955954.europe-west1.run.app/gcs/file-contents';
     // https://todoapi-947367955954.europe-west1.run.app/gcs/file-contents?bucketName=cary-tasks&ProjectId=todos.2.json
@@ -45,7 +45,7 @@ export class ProjectService {
             "StatusFlag": "Not Started",
             "StatusDate": "20250102"
         }
-        // console.log('|project.service.ts|apiUrlComplete|', apiUrlComplete , todoRecord)
+         console.log('|project.service.ts|apiUrlComplete|', apiUrlComplete , todoRecord)
 
         //         curl -X 'PUT' \
         //   'http://localhost:5173/gcs/file-contents?bucketName=cary-tasks&ProjectId=todos.2.json' \
@@ -71,11 +71,13 @@ export class ProjectService {
     async getProjectList(projectListName: string) {
         // projectListName
         const apiUrlComplete = `${this.apiUrlBase}/projectlist`
+        //const apiUrlComplete = `${this.apiUrlBase}/projectlist?projectlistName=${projectListName}`
         // console.log('|project.servic.ts|apiUrlComplete|', apiUrlComplete)
 
         const todos = await lastValueFrom(
             this.http.get<any[]>(apiUrlComplete)
         );
+        console.log('|project.service.ts|apiUrlComplete|', apiUrlComplete )
 
         return todos;
 
@@ -83,7 +85,7 @@ export class ProjectService {
     // This method fetches the raw data that TanStack Query will cache
     async saveProjectList(projectListObject : any) {
         // projectListName
-        const apiUrlComplete = `${this.apiUrlBase}/projectlist?bucketName=${projectListObject.Owner}`
+        const apiUrlComplete = `${this.apiUrlBase}/projectlist?projectlistName=${projectListObject.Owner}`
         // const apiUrlComplete = `${this.apiUrl}?bucketName=${this.bucketName}&ProjectId=todos.${todoRecord.ProjectId}.json`
         console.log('|project.servic.ts|saveProjectList|', apiUrlComplete , projectListObject )
 
