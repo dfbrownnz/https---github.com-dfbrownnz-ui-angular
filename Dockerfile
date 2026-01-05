@@ -12,6 +12,10 @@ RUN npm run build --configuration=production
 
 # STAGE 2: Serve with Nginx
 FROM nginx:alpine
+
+# Copy the custom nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf 
+
 # Replace 'YOUR_PROJECT_NAME' with the 'name' from your package.json
 COPY --from=build /usr/src/app/dist/my-app/browser /usr/share/nginx/html
 
