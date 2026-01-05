@@ -58,7 +58,8 @@ export class MyProjects {
     this.route.queryParams.subscribe(params => {
       this.currentProjectId = params['projectId'] ?? 1;
       this.projectOwner = params['projectOwner'] ?? "noOwner";
-      this.projectListName = params['projectList'] ?? "noProjectListName";
+      this.projectListName = params['projectList'] ?? "1";
+      
     });
     // 1. Correct logic to handle the queryParams subscription
     // this.route.queryParams.subscribe(params => {
@@ -68,9 +69,10 @@ export class MyProjects {
 
   // todoSummaryData
   todoData = injectQuery(() => ({
-    // Wrapping in an arrow function makes it reactive and defers execution
-    queryKey: ['projects', this.projectId()],
-    queryFn: () => this.projectService.getTodos(this.projectId()),
+    // Wrapping in an arrow function makes it reactive and defers execution this.currentProjectId
+    // queryKey: ['projects', this.projectId()],
+    queryKey: ['projects',  this.currentProjectId],
+    queryFn: () => this.projectService.getTodos( this.currentProjectId),
     staleTime: 1000 * 60 * 5,
   }));
 
