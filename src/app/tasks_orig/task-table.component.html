@@ -1,0 +1,28 @@
+<h2>task-table-component</h2>
+<table class="task-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Task Name</th>
+      <th>Project</th>
+      <th>Owner</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+@for (task of taskList; track task.id) {
+  <tr (click)="onRowClick(task)" class="selectable-row">
+        <td>{{ task.id }}</td>
+        <td>{{ task.taskName }}</td>
+        <td>{{ task.projectName }}</td>
+        <td>{{ task.owner }}</td>
+        <td>{{ task.status }}</td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="5">No tasks found.</td>
+      </tr>
+    }
+  </tbody>
+</table>
+

@@ -9,3 +9,12 @@ export interface Todo {
   StatusDate: string;
 }
 
+export interface TodoSummary {
+  projectId: string;
+  statusDate: string;
+  approval: string;
+  configuration: string;
+  testing: string;
+  production: string;
+  validation: string;
+}

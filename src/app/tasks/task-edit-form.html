@@ -1,0 +1,23 @@
+<h2>task-edit-component</h2>
+<div class="edit-container">
+  <h3>Edit Task: {{ task.id }}</h3>
+  
+  <div class="form-group">
+    <label>Task Name</label>
+    <input type="text" [(ngModel)]="task.taskName">
+  </div>
+
+  <div class="form-group">
+    <label>Owner</label>
+    <input type="text" [(ngModel)]="task.owner">
+  </div>
+
+  <div class="form-group">
+    <label>Status</label>
+    <select [(ngModel)]="task.status">
+      <option value="Pending">Pending</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
+  <button (click)="saveChanges()" class="save-btn">Save Changes</button>
+</div>

@@ -1,0 +1,20 @@
+<div class="dashboard-wrapper">
+Parent 
+  <!-- <app-task-summary [tasks]="allTasks" (taskSelected)="obProjectPicked($event)"></app-task-summary> -->
+   <app-task-summary 
+  (projectPicked)="onProjectPicked($event)">
+</app-task-summary>
+  
+    <hr>
+
+  <app-task-table [taskList]="allTasks" (taskSelected)="onTaskPicked($event)">   </app-task-table>
+
+  @if (selectedTask) {
+  <app-task-edit-form 
+  *ngIf="selectedTask" 
+  [task]="selectedTask" 
+  (taskSaved)="handleSave($event)">
+</app-task-edit-form>
+}
+
+</div>

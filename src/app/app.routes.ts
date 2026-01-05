@@ -5,6 +5,8 @@ import { MyProjects } from  './my-projects/my-projects'
 
 import { MySqlParser } from './my-sql-parser/my-sql-parser';
 import { ProjectList } from './project-list/project-list';
+import { TaskParentComponent } from './tasks/task-parent';
+
 
 
 export const routes: Routes = [
@@ -13,6 +15,8 @@ export const routes: Routes = [
   { path: 'projects', component: MyProjects }, // MyProjectToPm
   // { path: 'sqlparser', component: MySqlParser }, // MyProjectToPm
   { path: 'ProjectList', component: ProjectList }, // MyProjectToPm
+  { path: 'tasks', component: TaskParentComponent  }, // MyProjectToPm
+  // 
  
   { path: '', redirectTo: '/users', pathMatch: 'full' } // Optional: default page
 ];
