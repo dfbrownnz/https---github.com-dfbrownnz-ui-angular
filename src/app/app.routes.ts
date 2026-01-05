@@ -10,9 +10,9 @@ import { TaskParentComponent } from './tasks/task-parent';
 
 
 export const routes: Routes = [
-  { path: 'settings', component: MySettings },
-  { path: 'users', component: MyUsers },
-  { path: 'projects', component: MyProjects }, // MyProjectToPm
+  // { path: 'settings', component: MySettings },
+  // { path: 'users', component: MyUsers },
+  // { path: 'projects', component: MyProjects }, // MyProjectToPm
   // { path: 'sqlparser', component: MySqlParser }, // MyProjectToPm
   { path: 'ProjectList', component: ProjectList }, // MyProjectToPm
   { path: 'tasks', component: TaskParentComponent  }, // MyProjectToPm
