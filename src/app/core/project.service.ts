@@ -16,9 +16,9 @@ export class ProjectService {
   // private http = inject(HttpClient);
   // https://todoapi-947367955954.europe-west1.run.app/projectlist
   private apiUrl = 'https://todoapi-947367955954.europe-west1.run.app';
-  private apiUrlLocal = 'http://localhost:5173';
-  //private apiUrlBase = this.apiUrl ; // environment.apiUrl;
-  private apiUrlBase = this.apiUrlLocal;//  environment.apiUrl;
+  // private apiUrlLocal = 'http://localhost:5173';
+  private apiUrlBase = this.apiUrl ; // environment.apiUrl;
+  //private apiUrlBase = this.apiUrlLocal;//  environment.apiUrl;
   //private apiUrlBase =   environment.apiUrl;
   private bucketName = 'cary-tasks';
 
