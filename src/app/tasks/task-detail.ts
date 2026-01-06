@@ -1,20 +1,128 @@
 // task-table.component.ts
-import { CommonModule  } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input, Output, EventEmitter, inject, input, signal, effect } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { injectQuery } from '@tanstack/angular-query-experimental';
+import { ProjectService } from '../core/project.service';
 
 @Component({
   selector: 'app-task-table',
-  imports: [ CommonModule],
+  imports: [CommonModule, MatTableModule],
   standalone: true,
   templateUrl: `./task-detail.html`
 })
 export class TaskDetailTableComponent {
   @Input() taskList: any[] = [];
   @Output() taskSelected = new EventEmitter<any>();
+  //@Input({ required: true }) projectId: string = "1";
+  @Input({ required: true }) projectId!: string;
+
+
+  currentProjectId: string | null = null;
+  projectOwner: string | null = null;
+  projectListName: string | null = null;
+  // projectId = input.required<string>();
+
+
+  clickedRow: any;
+
+  dataSource = new MatTableDataSource<any>([]);
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    // The effect should be placed inside the constructor body
+
+
+
+  ) {
+
+  }
+
+  private snackBar = inject(MatSnackBar);
+  //////////// tan stack 
+  private http = inject(HttpClient);
+  // Use a signal for the projectId (e.g., from an input or route)
+
+
+  private projectService = inject(ProjectService);
+
+
+
+
+  ngOnInit(): void {
+    // Watch for changes in the URL (e.g., ?projectId=a)
+    this.route.queryParams.subscribe(params => {
+      this.currentProjectId = params['projectId'] ?? 1;
+      this.projectOwner = params['projectOwner'] ?? "noOwner";
+      this.projectListName = params['projectList'] ?? "1";
+
+    });
+    // 1. Correct logic to handle the queryParams subscription
+    // this.route.queryParams.subscribe(params => {
+    //   this.currentProjectId = params['projectId'] ?? 1;
+    // });
+  }
+
+  // todoData = signal( [
+  //   {
+  //     "ProjectId": "1",
+  //     "Id": "1",
+  //     "Description": "add users as a project managers to a PM role",
+  //     "Name": "list",
+  //     "Group": "Approval",
+  //     "Owner": "Dave",
+  //     "StatusFlag": "In Progress",
+  //     "StatusDate": "20250101"
+  //   },
+  //   {
+  //     "ProjectId": "1",
+  //     "Id": "2",
+  //     "Description": "add project to active projects - copy template to project ",
+  //     "Name": "list",
+  //     "Group": "Configuration",
+  //     "Owner": "Dave",
+  //     "StatusFlag": "Not Started",
+  //     "StatusDate": "20250102"
+  //   }
+  // ] )
+
+  // todoSummaryData
+  todoData = injectQuery(() => ({
+    // Wrapping in an arrow function makes it reactive and defers execution this.currentProjectId
+    // queryKey: ['projects', this.projectId()],
+    queryKey: ['tasks', this.projectId],
+    queryFn: async () => {
+      console.log(` Network Request: Fetching tasks for Project ID: ${this.projectId}`);
+      return this.projectService.getTodos(this.projectId);
+    },
+    // staleTime: 1000 * 60 * 5,
+    staleTime: 0, // Ensures it considers data old immediately upon ID change
+    // Ensure the query is enabled
+    enabled: !!this.projectId
+  }));
+
+  // todoData
+  todoSummaryData = injectQuery(() => ({
+    // Wrapping in an arrow function makes it reactive and defers execution
+    queryKey: ['projects_summary'],
+    // queryFn: async () => await this.projectService.postTodosSummary( this.projectOwner! , this.projectListName!  ) ,
+    queryFn: () => this.projectService.postTodosSummary(this.projectOwner!, this.projectListName!),
+    staleTime: 1000 * 60 * 5,
+
+  }));
+
+  // These strings must match the 'matColumnDef' values in the HTML
+  displayedColumns: string[] = ['ProjectId', 'Id', 'Group', 'Name', 'Description', 'Owner', 'StatusFlag', 'StatusDate'];
+  // Wrap your data in a MatTableDataSource for built-in sorting
+
 
   onRowClick(task: any) {
     this.taskSelected.emit(task);
-    console.log( '|TaskDetailTableComponent|onRowClick|',  task )
+    console.log('|TaskDetailTableComponent|onRowClick|', task)
   }
 
 }

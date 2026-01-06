@@ -1,5 +1,5 @@
 <div class="dashboard-wrapper">
-Parent 
+tasks / task-parent
   <!-- <app-task-summary [tasks]="allTasks" (taskSelected)="obProjectPicked($event)"></app-task-summary> -->
    <app-task-summary 
   (projectPicked)="onProjectPicked($event)">
@@ -7,7 +7,9 @@ Parent
   
     <hr>
 
-  <app-task-table [taskList]="allTasks" (taskSelected)="onTaskPicked($event)">   </app-task-table>
+  <!-- <app-task-table [taskList]="allTasks" (taskSelected)="onTaskPicked($event)">   </app-task-table> -->
+   <app-task-table [projectId]="currentProjectId"></app-task-table>
+    
 
   @if (selectedTask) {
   <app-task-edit-form 

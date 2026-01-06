@@ -10,9 +10,8 @@ import { ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule, MatSort } from '@angular/material/sort'; //
 
-import { computed } from '@angular/core';
-
-import { Todo } from '../core/types';
+// import { computed } from '@angular/core';
+// import { Todo } from '../core/types';
 
 import { MyProjectsFormComponent } from '../my-projects/project-form/project-form.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -85,23 +84,6 @@ export class MyProjects {
     staleTime: 1000 * 60 * 5,
 
   }));
-
-
-  // columnHelper = createColumnHelper<Todo>();
-  // http://localhost:4200/projects?projectOwner=ted&projectList=26q1&projectId=1
-  yo = signal([
-    {
-      "ProjectId": "2",
-      "Id": 1,
-      "Group": "Testing",
-      "Description": "cleanup",
-      "Name": "dishes",
-
-      "Owner": "Dave",
-      "StatusFlag": "Not Started",
-      "StatusDate": "20250101"
-    }
-  ]);
 
   // These strings must match the 'matColumnDef' values in the HTML
   displayedColumns: string[] = ['ProjectId', 'Id', 'Group', 'Name', 'Description', 'Owner', 'StatusFlag', 'StatusDate'];

@@ -1,5 +1,5 @@
 // project-dashboard.component.ts
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TaskDetailTableComponent } from './task-detail';
 import { TaskEditFormComponent } from './task-edit-form';
 import { TaskSummaryComponent } from './task-summary';
@@ -16,6 +16,9 @@ import { Todo, TodoSummary } from '../core/types';
 })
 export class TaskParentComponent {
 
+    currentProjectId: string = '3';
+    @Output() projectPicked = new EventEmitter<string>();
+
     onProjectPicked(todoSummary: TodoSummary) {
         this.selectedProject = { ...todoSummary };
         this.allTasks = this.allTasksOrig.filter(task => task.projectId === todoSummary.projectId);
@@ -23,6 +26,8 @@ export class TaskParentComponent {
         if (this.allTasks.length == 0) {
             this.allTasks = [...this.allTasksOrig];
         }
+        this.currentProjectId = todoSummary.projectId ;
+    console.log('onProjectPicked Project changed to:', this.currentProjectId);
     }
 
     onTaskPicked(task: any) {
@@ -64,4 +69,11 @@ export class TaskParentComponent {
             this.selectedTask = null;
         }
     }
+
+    // Inside TaskSummaryComponent
+
+
+selectProject(id: string) {
+  this.projectPicked.emit(id);
+}
 }

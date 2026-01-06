@@ -17,8 +17,8 @@ export class ProjectService {
   // https://todoapi-947367955954.europe-west1.run.app/projectlist
   private apiUrl = 'https://todoapi-947367955954.europe-west1.run.app';
   private apiUrlLocal = 'http://localhost:5173';
-  private apiUrlBase = this.apiUrl ; // environment.apiUrl;
-  //private apiUrlBase = this.apiUrlLocal;//  environment.apiUrl;
+  //private apiUrlBase = this.apiUrl ; // environment.apiUrl;
+  private apiUrlBase = this.apiUrlLocal;//  environment.apiUrl;
   //private apiUrlBase =   environment.apiUrl;
   private bucketName = 'cary-tasks';
 
@@ -59,7 +59,7 @@ export class ProjectService {
   async getTodos(projectId: string) {
     const apiUrl = `${this.apiUrlBase}/gcs/file-contents`;
     const apiUrlComplete = `${apiUrl}?bucketName=${this.bucketName}&ProjectId=todos.${projectId}.json`
-    // console.log('|project.servic.ts|apiUrlComplete|', apiUrlComplete)
+     console.log('|project.service.ts|apiUrlComplete|getTodos|', apiUrlComplete)
 
     const todos = await lastValueFrom(
       this.http.get<any[]>(apiUrlComplete)

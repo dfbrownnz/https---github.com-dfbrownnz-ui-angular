@@ -3,12 +3,15 @@
   @if (todoData.error()) { <span>Error: {{ todoData.error()?.message }}</span> }
 
   @if (todoData.data()) {
-  <h2>Projects for {{ projectOwner || 'All' }} in {{ projectListName || 'All' }} </h2>
-  <h2> back end gets all project id for this owner and list </h2>
+  <h2>Projects for {{ projectOwner || 'All' }} in {{ projectListName || 'All' }} {{ currentProjectId || 'No Project id selected'  }} </h2>
+  <h2> back end gets all project id for this owner and list  </h2>
+  <h3> http://localhost:4200/projects?projectOwner=ted&projectList=26q2&projectId=2 </h3>
+  <h3> my-projects / my-projects </h3>
 
   <div class="mat-elevation-z8 mt-4">
 
     <table mat-table [dataSource]="todoData.data() ?? []" matSort class="w-full">
+      <!-- <table mat-table [dataSource]="todoData.data()" matSort class="w-full"></table> -->
 
       <ng-container matColumnDef="ProjectId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
