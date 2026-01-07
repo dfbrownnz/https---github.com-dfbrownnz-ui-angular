@@ -24,6 +24,9 @@ COPY --from=build /usr/src/app/dist/my-app/browser /usr/share/nginx/html
 # Add this line to change the default port from 80 to 8080
 RUN sed -i 's/listen\(.*\)80;/listen 8080;/g' /etc/nginx/conf.d/default.conf
 
+# Create the cache directory and set permissions
+RUN mkdir -p /tmp/nginx_cache && chmod -R 777 /tmp/nginx_cache
+
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
 
