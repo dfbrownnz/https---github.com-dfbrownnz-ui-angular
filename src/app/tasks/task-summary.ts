@@ -43,6 +43,7 @@ export class TaskSummaryComponent { //implements OnChanges {
     
   @Input() tasks: any[] = [];
   private route = inject(ActivatedRoute);
+  constructor(private router: Router) { }
 
     readonly projectOwner = toSignal(
   this.route.queryParamMap.pipe(map(params => params.get('projectOwner'))),
@@ -52,6 +53,11 @@ export class TaskSummaryComponent { //implements OnChanges {
   this.route.queryParamMap.pipe(map(params => params.get('projectList'))),
   { initialValue: this.route.snapshot.queryParamMap.get('projectList') }
 );
+  readonly projectId = toSignal(
+  this.route.queryParamMap.pipe(map(params => params.get('projectId'))),
+  { initialValue: this.route.snapshot.queryParamMap.get('projectId') }
+);
+
 
 readonly todoSummaryData = injectQuery(() => ({
   queryKey: ['todo-summary'], // Ensure this signal has a value
@@ -89,8 +95,17 @@ readonly todoSummaryData = injectQuery(() => ({
  @Output() projectPicked = new EventEmitter<TodoSummary>();
 
   onRowClick(row: TodoSummary): void {
+    console.log('Row clicked:TaskSummaryComponent|', row);
     // Emit the projectId to the parent
     this.projectPicked.emit(row);
+
+    // this.router.navigate([], {
+    //   queryParams: {
+
+    //     'projectId': row.projectId
+    //   },
+    //   queryParamsHandling: 'merge' // Keeps existing parameters like projectId
+    // });
   }
 
   readonly tableData = computed(() => {

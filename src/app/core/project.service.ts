@@ -61,8 +61,16 @@ export class ProjectService {
     const apiUrlComplete = `${apiUrl}?bucketName=${this.bucketName}&ProjectId=todos.${projectId}.json`
      console.log('|project.service.ts|apiUrlComplete|getTodos|', apiUrlComplete)
 
+        const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+
     const todos = await lastValueFrom(
-      this.http.get<any[]>(apiUrlComplete)
+      this.http.get<any[]>(apiUrlComplete , httpOptions)
     );
 
     return todos;

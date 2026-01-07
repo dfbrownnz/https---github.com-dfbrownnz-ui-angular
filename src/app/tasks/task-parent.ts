@@ -5,6 +5,7 @@ import { TaskEditFormComponent } from './task-edit-form';
 import { TaskSummaryComponent } from './task-summary';
 import { CommonModule } from '@angular/common';
 import { Todo, TodoSummary } from '../core/types';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class TaskParentComponent {
 
     currentProjectId: string = '3';
     @Output() projectPicked = new EventEmitter<string>();
+    constructor(private router: Router) { }
 
     onProjectPicked(todoSummary: TodoSummary) {
         this.selectedProject = { ...todoSummary };
@@ -26,8 +28,16 @@ export class TaskParentComponent {
         if (this.allTasks.length == 0) {
             this.allTasks = [...this.allTasksOrig];
         }
-        this.currentProjectId = todoSummary.projectId ;
-    console.log('onProjectPicked Project changed to:', this.currentProjectId);
+        this.currentProjectId = todoSummary.projectId;
+        console.log('onProjectPicked Project changed to:', this.currentProjectId);
+
+        this.router.navigate([], {
+            queryParams: {
+
+                'projectId': todoSummary.projectId
+            },
+            queryParamsHandling: 'merge' // Keeps existing parameters like projectId
+        });
     }
 
     onTaskPicked(task: any) {
@@ -73,7 +83,7 @@ export class TaskParentComponent {
     // Inside TaskSummaryComponent
 
 
-selectProject(id: string) {
-  this.projectPicked.emit(id);
-}
+    selectProject(id: string) {
+        this.projectPicked.emit(id);
+    }
 }

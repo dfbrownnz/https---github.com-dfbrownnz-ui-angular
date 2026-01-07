@@ -1,12 +1,14 @@
 // task-table.component.ts
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'; //
 import { Component, Input, Output, EventEmitter, inject, input, signal, effect } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { injectQuery } from '@tanstack/angular-query-experimental';
+import { injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
 import { ProjectService } from '../core/project.service';
+
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-task-table',
@@ -24,19 +26,16 @@ export class TaskDetailTableComponent {
   currentProjectId: string | null = null;
   projectOwner: string | null = null;
   projectListName: string | null = null;
-  // projectId = input.required<string>();
-
+  //  projectId : string | null = null;
 
   clickedRow: any;
 
   dataSource = new MatTableDataSource<any>([]);
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    // The effect should be placed inside the constructor body
-
-
+    private router: Router, //
+    private route: ActivatedRoute, //
+    // The effect should be placed inside the constructor body //
 
   ) {
 
@@ -46,12 +45,13 @@ export class TaskDetailTableComponent {
   //////////// tan stack 
   private http = inject(HttpClient);
   // Use a signal for the projectId (e.g., from an input or route)
-
-
   private projectService = inject(ProjectService);
 
+  // 1. Get the projectId as a signal from queryParams
+  // readonly projectId = toSignal(this.route.queryParams.pipe(map(p => p['projectId'])));
 
-
+  // constructor(private route: ActivatedRoute) {}
+  private queryClient = inject(QueryClient);
 
   ngOnInit(): void {
     // Watch for changes in the URL (e.g., ?projectId=a)
@@ -59,6 +59,13 @@ export class TaskDetailTableComponent {
       this.currentProjectId = params['projectId'] ?? 1;
       this.projectOwner = params['projectOwner'] ?? "noOwner";
       this.projectListName = params['projectList'] ?? "1";
+       this.projectId = params['projectId'] ?? 1;
+
+      // this.route.queryParams.subscribe(params => {
+      //   this.projectId = params['projectId'];
+      //   console.log('|ngOnInit', this.projectId);
+      // });
+
 
     });
     // 1. Correct logic to handle the queryParams subscription
@@ -66,29 +73,6 @@ export class TaskDetailTableComponent {
     //   this.currentProjectId = params['projectId'] ?? 1;
     // });
   }
-
-  // todoData = signal( [
-  //   {
-  //     "ProjectId": "1",
-  //     "Id": "1",
-  //     "Description": "add users as a project managers to a PM role",
-  //     "Name": "list",
-  //     "Group": "Approval",
-  //     "Owner": "Dave",
-  //     "StatusFlag": "In Progress",
-  //     "StatusDate": "20250101"
-  //   },
-  //   {
-  //     "ProjectId": "1",
-  //     "Id": "2",
-  //     "Description": "add project to active projects - copy template to project ",
-  //     "Name": "list",
-  //     "Group": "Configuration",
-  //     "Owner": "Dave",
-  //     "StatusFlag": "Not Started",
-  //     "StatusDate": "20250102"
-  //   }
-  // ] )
 
   // todoSummaryData
   todoData = injectQuery(() => ({
