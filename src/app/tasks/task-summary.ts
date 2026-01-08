@@ -76,21 +76,7 @@ readonly todoSummaryData = injectQuery(() => ({
     'validation'
   ];
 
-
-  // ngOnChanges() {
-  //   if (this.tasks) {
-  //     this.totalTasks = this.tasks.length;
-  //     this.completedTasks = this.tasks.filter(t => t.status === 'Completed').length;
-  //     this.pendingTasks = this.tasks.filter(t => t.status === 'Pending').length;
-  //   }
-  // }
-
-  
-  // onRowClick(row: any) {
-  //   console.log('Row clicked:TaskSummaryComponent|', row);
-  //   this.taskSelected = row;
-  //   // @Output() taskSelected = new EventEmitter<any>();
-  // }
+ 
 
  @Output() projectPicked = new EventEmitter<TodoSummary>();
 
